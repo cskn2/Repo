@@ -1,0 +1,20 @@
+-- Nepo's Chill Script v1.0
+-- Tự động bật anti-grab và spam chat "Tôi đang chill, đừng động vào"
+
+local player = game.Players.LocalPlayer
+
+-- Anti Grab: Không cho ai nắm được mình
+player.CharacterAdded:Connect(function(char)
+    wait(1)
+    for _, part in pairs(char:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
+        end
+    end
+end)
+
+-- Spam Chill Mode
+while true do
+    wait(10)
+    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Tôi đang chill, đừng động vào.", "All")
+end
