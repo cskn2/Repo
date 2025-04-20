@@ -1,19 +1,54 @@
-local player = game.Players.LocalPlayer
+-- Simple GUI kiểu menu
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Button = Instance.new("TextButton")
+local Checkbox = Instance.new("TextButton")
 
-player.CharacterAdded:Connect(function(char)
-    wait(1)
-    for _, part in ipairs(char:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
-        end
-    end
+-- Gắn GUI vào player
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "ChillGui"
+
+-- Cấu hình Frame
+Frame.Size = UDim2.new(0, 300, 0, 200)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Parent = ScreenGui
+
+-- Tiêu đề
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "Fling Chill GUI"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 20
+Title.Parent = Frame
+
+-- Nút bấm ví dụ
+Button.Size = UDim2.new(0, 120, 0, 40)
+Button.Position = UDim2.new(0, 20, 0, 60)
+Button.BackgroundColor3 = Color3.fromRGB(50, 150, 255)
+Button.Text = "Chill Mode"
+Button.TextColor3 = Color3.new(1, 1, 1)
+Button.Font = Enum.Font.Gotham
+Button.TextSize = 16
+Button.Parent = Frame
+
+-- Checkbox kiểu đơn giản
+Checkbox.Size = UDim2.new(0, 20, 0, 20)
+Checkbox.Position = UDim2.new(0, 20, 0, 120)
+Checkbox.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Checkbox.Text = ""
+Checkbox.Parent = Frame
+
+-- Bật tắt checkbox
+local isChecked = false
+Checkbox.MouseButton1Click:Connect(function()
+	isChecked = not isChecked
+	Checkbox.BackgroundColor3 = isChecked and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 end)
 
--- Nếu nhân vật đã có sẵn (chết rồi respawn), chạy luôn
-if player.Character then
-    for _, part in ipairs(player.Character:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
-        end
-    end
-end
+-- Hành động khi bấm nút Chill Mode
+Button.MouseButton1Click:Connect(function()
+	print("Chill Mode Activated")
+end)
