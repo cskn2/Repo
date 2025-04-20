@@ -1,14 +1,19 @@
--- Nepo's Chill Script v1.1
--- Tự động bật anti-grab, không còn spam chat
-
 local player = game.Players.LocalPlayer
 
--- Anti Grab: Không cho ai nắm được mình
 player.CharacterAdded:Connect(function(char)
-	wait(1)
-	for _, part in pairs(char:GetDescendants()) do
-		if part:IsA("BasePart") then
-			part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
-		end
-	end
+    wait(1)
+    for _, part in ipairs(char:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
+        end
+    end
 end)
+
+-- Nếu nhân vật đã có sẵn (chết rồi respawn), chạy luôn
+if player.Character then
+    for _, part in ipairs(player.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5)
+        end
+    end
+end
